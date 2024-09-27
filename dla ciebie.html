@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <link rel="shortcut icon" href="logo_strony.png">
+    <title>GALERIA PRZYMORZE | Dla ciebie</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+          P, h1 {
+            color: rgb(255, 255, 255);
+        }
+
+        body {
+            background-color: rgb(156, 225, 228);
+        }
+
+        a:link {
+            color: #7093DB;
+        }
+
+        a:visited {
+            color: rgb(190, 6, 246);
+        }
+
+        a:hover {
+            color: white;
+        }
+
+        body {
+            background-color: rgb(156, 225, 228);
+            font-family: Arial, sans-serif;
+            text-align: center; /* Center all text */
+        }
+        #calendar {
+            margin: 20px auto;
+            width: 300px;
+            display: inline-block; /* Center the calendar box */
+        }
+        .open-day {
+            background-color: lightblue !important;
+            position: relative;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .open-day::after {
+            content: attr(data-time);
+            color: darkblue;
+            display: block;
+            margin-top: 2px;
+            font-size: 12px;
+            font-weight: bold;
+            border-top: 2px solid darkblue;
+            padding-top: 2px;
+        }
+        .closed-day {
+            background-color: lightgrey !important;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #countdown {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: darkred;
+        }
+        #date {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #link {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        #current-time {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="calendar"></div>
+    <div id="countdown"></div>
+    <div id="date"></div>
+    <div id="current-time"></div>
+    <div id="link">
+        <a href="index.html">Powrót</a>
+    </div>
+
+    <script>
+        function isOpenToday() {
+            const today = new Date();
+            const dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
+            return (dayOfWeek >= 1 && dayOfWeek <= 6); // Open: Monday to Saturday
+        }
+
+        function getClosingTime() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            if (dayOfWeek >= 1 && dayOfWeek <= 6) { // Monday to Saturday
+                return new Date(today.getFullYear(), today.getMonth(), today.getDate(), 21, 30, 0);
+            } else if (dayOfWeek === 0) { // Sunday
+                return new Date(today.getFullYear(), today.getMonth(), today.getDate(), 20, 0, 0); // Shopping Sunday
+            }
+            return null;
+        }
+
+        function getOpeningTime() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            if (dayOfWeek >= 1 && dayOfWeek <= 6) {
+                return new Date(today.getFullYear(), today.getMonth(), today.getDate(), 7, 30, 0);
+            }
+            return null;
+        }
+
+        function formatTime(milliseconds) {
+            const totalSeconds = Math.floor(milliseconds / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            return { hours, minutes, seconds };
+        }
+
+        function updateCountdown() {
+            const countdownElement = document.getElementById("countdown");
+            const closingTime = getClosingTime();
+            const openingTime = getOpeningTime();
+            const now = new Date();
+
+            if (closingTime && now < closingTime) {
+                const timeRemaining = closingTime - now;
+                const { hours, minutes, seconds } = formatTime(timeRemaining);
+                countdownElement.innerHTML = `Pozostało do zamknięcia: ${hours} godzin, ${minutes} minut, ${seconds} sekund`;
+            } else if (openingTime && now < openingTime) {
+                const timeRemaining = openingTime - now;
+                const { hours, minutes, seconds } = formatTime(timeRemaining);
+                countdownElement.innerHTML = `Dziś galeria będzie otwarta. Pozostało do otwarcia: ${hours} godzin, ${minutes} minut, ${seconds} sekund`;
+            } else if (now >= closingTime) {
+                countdownElement.innerHTML = "Dziś galeria była otwarta.";
+            } else {
+                countdownElement.innerHTML = "Galeria jest zamknięta.";
+            }
+        }
+
+        function updateCurrentTime() {
+            const currentTimeElement = document.getElementById("current-time");
+            const now = new Date();
+            currentTimeElement.innerHTML = `Aktualny czas: ${now.toLocaleTimeString('pl-PL')}`;
+        }
+
+        function loadCalendar() {
+            const calendarElement = document.getElementById("calendar");
+            const today = new Date();
+
+            // Clear existing calendar
+            calendarElement.innerHTML = '';
+
+            // Check if open today
+            if (isOpenToday()) {
+                const closingTime = getClosingTime();
+                const closingTimeString = `${closingTime.getHours()}:${closingTime.getMinutes()}`;
+                calendarElement.innerHTML = `<div class="open-day" data-time="${closingTimeString}">Dziś galeria jest otwarta!</div>`;
+            } else {
+                calendarElement.innerHTML = `<div class="closed-day">Dziś galeria jest zamknięta.</div>`;
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000); // Update countdown every second
+            setInterval(updateCurrentTime, 1000); // Update current time every second
+
+            // Display today's date
+            const dateElement = document.getElementById("date");
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            dateElement.innerHTML = `Dziś jest: ${today.toLocaleDateString('pl-PL', options)}`;
+        }
+
+        // Load calendar on page load
+        window.onload = loadCalendar;
+
+    </script>
+</body>
+</html>

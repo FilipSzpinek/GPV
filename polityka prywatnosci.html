@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="logo_strony.png">
+    <title>GALERIA PRZYMORZE | Polityka Prywatności</title>
+    <style>
+        h1 {
+            color: rgb(255, 255, 255);
+        }
+
+        p {
+            color: rgb(0, 0, 0);
+            text-align: justify; /* Justify text for better readability */
+        }
+
+        body {
+            background-color: rgb(156, 225, 228);
+            text-align: center; /* Center text and elements */
+            padding: 20px;
+        }
+
+        a:link {
+            color: #7093DB;
+        }
+
+        a:visited {
+            color: rgb(190, 6, 246);
+        }
+
+        a:hover {
+            color: white;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        #input_menu {
+            background-color: rgb(72, 146, 210);
+            color: rgb(255, 255, 255);
+            height: 35px;
+            width: 200px;
+            border: 2px solid rgb(72, 146, 210);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            margin: 5px;
+        }
+
+        #menu_div {
+            background-color: rgb(18, 123, 189);
+            width: 300px;
+            height: auto;
+            border-radius: 20px;
+            margin: 10px auto; /* Center the menu */
+            padding: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .accept {
+            background-color: rgb(76, 175, 80); /* Green color */
+            color: white;
+        }
+
+        .accept:hover {
+            background-color: rgb(56, 142, 60); /* Darker green on hover */
+        }
+
+        .reject {
+            background-color: rgb(244, 67, 54); /* Red color */
+            color: white;
+        }
+
+        .reject:hover {
+            background-color: rgb(198, 40, 40); /* Darker red on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Polityka Prywatności</h1>
+    <div id="menu_div">
+        <p>
+            W Galerii Przymorze szanujemy Twoją prywatność i zobowiązujemy się do ochrony Twoich danych osobowych. 
+            Niniejsza polityka określa, jakie dane zbieramy, w jaki sposób je wykorzystujemy oraz jakie masz prawa w związku z tymi danymi. 
+            Gromadzimy dane osobowe, takie jak imię, nazwisko, adres e-mail oraz inne informacje, które są niezbędne do realizacji usług. 
+            Twoje dane osobowe będą przechowywane przez czas niezbędny do realizacji celów, dla których zostały zebrane. 
+            Nie sprzedajemy ani nie udostępniamy Twoich danych osobowych osobom trzecim bez Twojej zgody, chyba że wymagają tego przepisy prawa.
+        </p>
+        <p>
+            W każdej chwili masz prawo dostępu do swoich danych, ich poprawiania oraz usunięcia. 
+            Jeśli masz jakiekolwiek pytania dotyczące naszej polityki prywatności, skontaktuj się z nami. 
+            Akceptując tę politykę, wyrażasz zgodę na przetwarzanie swoich danych osobowych w zgodzie z nią.
+        </p>
+
+        <button class="button accept" onclick="handleAccept()">OK, Akceptuję</button>
+        <button class="button reject" onclick="handleReject()">Odrzucam</button>
+    </div>
+
+    <script>
+        function handleAccept() {
+            alert("Dziękujemy za zaakceptowanie naszej polityki prywatności.");
+            // Here you can redirect the user or take further action
+            window.location.href = "index.html"; // Redirect to the main page
+        }
+
+        function handleReject() {
+            alert("Niestety, nie możemy kontynuować bez akceptacji polityki prywatności.");
+            // Here you could add logic for what to do if the user rejects the policy
+            window.close(); // Attempt to close the window (may not work in all browsers)
+        }
+    </script>
+</body>
+</html>

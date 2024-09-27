@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <link rel="shortcut icon" href=logo_strony.png>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WGaleria Przymozre | Logowanie</title>
+    <style>
+        a:link
+			{
+				color:#7093DB;
+			}
+
+			a:visited
+			{
+				color:rgb(190, 6, 246);
+			}
+
+			a:hover
+			{
+				color:White;
+			}
+        body {
+            background-color:rgb(156, 225, 228); /* szare tło */
+            color: rgb(255, 255, 255); /* kolor tekstu */
+        }
+        #search-container {
+            display: flex; /* Ustawienie kontenera na flexbox */
+            justify-content: center; /* Wyrównanie elementów wzdłuż osi X do środka */
+            align-items: center; /* Wyrównanie elementów wzdłuż osi Y do środka */
+            margin-top: 50px; /* Dodanie odstępu od góry */
+        }
+        #search {
+            width: 400px; /* szerokość pola wyszukiwania */
+            height: 30px; /* wysokość pola wyszukiwania */
+            font-size: 15px; /* wielkość czcionki w polu wyszukiwania */
+            background-color: rgb(98, 119, 188); /* kolor tła przycisku */
+            color: rgb(255, 255, 255); /* kolor tekstu na przycisku */
+            padding-left: 25px; /* dodaje odstęp dla ikony */
+            border-radius: 5px; /* zaokrągla narożniki pola */
+            border: none; /* usuwa obramowanie pola */
+            margin-right: 10px; /* dodaje odstęp między polem wyszukiwania a przyciskiem */
+        }
+        button[type="submit"] {
+            background-color: rgb(98, 119, 188); /* kolor tła przycisku */
+            color: rgb(255, 255, 255); /* kolor tekstu na przycisku */
+            border: none; /* usuwa obramowanie przycisku */
+            border-radius: 5px; /* zaokrągla narożniki przycisku */
+            cursor: pointer; /* zmienia kursor na wskaźnik */
+            width:35px; /* szerokość pola wyszukiwania */
+            height: 33px; /* wysokość pola wyszukiwania */
+        }
+        button[type="submit"]:hover {
+            background-color: darkviolet; /* zmiana koloru tła po najechaniu myszką */
+            color: rgb(255, 255, 255);
+        }
+        
+        label{
+            color: #ffffff;
+        }
+
+     
+    </style>
+
+    <script>
+        document.addEventListener('keydown', function (event) {
+    if (event.ctrlKey && (event.key === 'u' || event.key === 'U')) {
+        event.preventDefault();
+        alert('Przeglądanie kodu źródłowego jest zablokowane.');
+    }
+    // Blokada innych skrótów klawiaturowych
+    if (event.ctrlKey && (event.key === 's' || event.key === 'S' || event.key === 'c' || event.key === 'C')) {
+        event.preventDefault();
+        alert('Kopiowanie lub zapisywanie jest zablokowane.');
+    }
+});
+document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+    alert('Funkcja prawego przycisku myszy jest zablokowana.');
+});
+(function() {
+    const element = new Image();
+    Object.defineProperty(element, 'id', {
+        get: function() {
+            // Uruchomienie akcji, gdy narzędzia programistyczne są otwarte
+            alert('Narzędzia programistyczne są zablokowane.');
+        }
+    });
+    console.log(element);
+})();
+
+    </script>
+</head>
+<body>
+
+    <center><h1>Zaloguj się</h1></center>
+    <center>
+    <form action="/search" method="GET">
+        <div id="search-container">
+          
+            <input type="password" id="search" name="q" placeholder="Hasło:">
+            <button type="submit"><i class="fas fa-search" style="font-size: 20px;"></i></button>
+        </div>
+    </form>
+    </center>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Zapobiega domyślnemu zachowaniu formularza (przeładowaniu strony)
+            var query = document.getElementById('search').value.toLowerCase(); // Pobiera wartość z pola wyszukiwania i zamienia na małe litery
+            if (query === 'admin<>admin' ) {
+                window.location.href = 'panel.html'; // Przekierowanie do 1html.html, jeśli fraza to "1"
+      
+            } else {
+                // Możesz tutaj dodać obsługę, gdy fraza nie pasuje do żadnej przekierowania
+                alert('Błęne Hasło');
+            }
+        });
+    </script>
+
+    <center>
+        <a href="index.html">Powrót</a> <br>
+    </center>
+</body>
+</html>
